@@ -3,6 +3,7 @@ import { Client, GatewayIntentBits, REST, Routes, Collection } from "discord.js"
 import * as artist from "./commands/artist.js";
 import * as album  from "./commands/album.js";
 import * as song   from "./commands/song.js";
+import http from "http";
 
 const client   = new Client({ intents: [GatewayIntentBits.Guilds] });
 const commands = new Collection();
@@ -27,3 +28,5 @@ client.on("interactionCreate", async interaction => {
 
 client.once("ready", () => console.log(`🎵 Logged in as ${client.user.tag}`));
 client.login(process.env.DISCORD_TOKEN);
+
+http.createServer((_, res) => res.end("Bot is running!")).listen(process.env.PORT || 3000);
