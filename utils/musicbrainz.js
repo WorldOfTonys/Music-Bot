@@ -19,8 +19,13 @@ export async function searchAlbum(title) {
 }
 
 export async function searchSong(title) {
-  const url = `${BASE}/recording/?query=${encodeURIComponent(title)}&fmt=json&limit=1`;
+  // Use strict Lucene syntax for the recording name and request up to 10 entries
+  const strictQuery = `recording:"${title}"`;
+  const url = `${BASE}/recording/?query=${encodeURIComponent(strictQuery)}&fmt=json&limit=10`;
+  
   const res = await fetch(url, { headers: HEADERS });
   const data = await res.json();
-  return data.recordings?.[0] ?? null;
+  
+  // Return the array instead of grabbing [0] immediately
+  return data.recordings ?? [];
 }
