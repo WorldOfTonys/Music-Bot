@@ -1,7 +1,6 @@
 import fetch from "node-fetch";
 
 const BASE = "https://musicbrainz.org/ws/2";
-// MusicBrainz requires a descriptive User-Agent header — update with your contact info
 const HEADERS = { "User-Agent": "MusicDiscordBot/1.0 (your@email.com)" };
 
 export async function searchArtist(name) {
@@ -19,13 +18,13 @@ export async function searchAlbum(title) {
 }
 
 export async function searchSong(title) {
-  // Use strict Lucene syntax for the recording name and request up to 10 entries
+  // Enforcing strict title matches, but pushing the limit to 30 
+  // to ensure short words like "Numb" don't get drowned out by niche tracks.
   const strictQuery = `recording:"${title}"`;
-  const url = `${BASE}/recording/?query=${encodeURIComponent(strictQuery)}&fmt=json&limit=10`;
+  const url = `${BASE}/recording/?query=${encodeURIComponent(strictQuery)}&fmt=json&limit=30`;
   
   const res = await fetch(url, { headers: HEADERS });
   const data = await res.json();
   
-  // Return the array instead of grabbing [0] immediately
   return data.recordings ?? [];
 }
