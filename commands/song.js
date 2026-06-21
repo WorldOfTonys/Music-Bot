@@ -13,12 +13,13 @@ export async function execute(interaction) {
   await interaction.deferReply();
 
   const results = await searchSong(title);
+  
+  // Guard against empty results or API errors
   if (!results || (Array.isArray(results) && results.length === 0)) {
     return interaction.editReply("Song not found.");
   }
 
-  // If searchSong returns an array, pick the most popular one based on release count.
-  // If it's already a single object, fall back to it.
+  // Sort by the number of releases to find the most popular option
   const song = Array.isArray(results)
     ? results.sort((a, b) => (b.releases?.length || 0) - (a.releases?.length || 0))[0]
     : results;
