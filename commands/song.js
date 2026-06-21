@@ -14,14 +14,19 @@ export async function execute(interaction) {
 
   const results = await searchSong(title);
   
-  // Guard against empty results or API errors
   if (!results || (Array.isArray(results) && results.length === 0)) {
     return interaction.editReply("Song not found.");
   }
 
-  // Sort by the number of releases to find the most popular option
+  // Smart sort: Filters by relevance score first, then breaks ties via total release count
   const song = Array.isArray(results)
-    ? results.sort((a, b) => (b.releases?.length || 0) - (a.releases?.length || 0))[0]
+    ? results.sort((a, b) => {
+        const scoreA = a.score ?? 0;
+        const scoreB = b.score ?? 0;
+        if (scoreB !== scoreA) return scoreB - scoreA; 
+        
+        return (b.releases?.length || 0) - (a.releases?.length || 0);
+      })[0]
     : results;
 
   const artist   = song["artist-credit"]?.[0]?.artist?.name ?? "Unknown";
