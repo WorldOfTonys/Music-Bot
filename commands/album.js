@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
-import { searchAlbum } from "../utils/musicbrainz.js";
+import { searchAlbum } from "../utils/iTunes.js"; // Make sure it's not iTubes! 😉
 
 export const data = new SlashCommandBuilder()
   .setName("album")
@@ -13,19 +13,27 @@ export async function execute(interaction) {
   await interaction.deferReply();
 
   const album = await searchAlbum(title);
-  if (!album) return interaction.editReply("Album not found.");
+  
+  if (!album) {
+    return interaction.editReply("Album not found.");
+  }
 
-  const artist = album["artist-credit"]?.[0]?.artist?.name ?? "Unknown";
+  // Clean up the release year
+  const releaseYear = album.releaseDate ? album.releaseDate.split("-")[0] : "Unknown";
 
   const embed = new EmbedBuilder()
-    .setTitle(album.title)
-    .setColor(0xe91e63)
+    .setTitle(album.collectionName)
+    .setURL(album.collectionViewUrl) // Links directly to the album on Apple Music
+    .setColor(0xff9800)
+    .setThumbnail(album.artworkUrl100) // Pulls the official high-quality album art
     .addFields(
-      { name: "Artist",   value: artist, inline: true },
-      { name: "Released", value: album["first-release-date"] ?? "Unknown", inline: true },
-      { name: "Type",     value: album["primary-type"] ?? "Unknown", inline: true }
+      { name: "Artist",       value: album.artistName ?? "Unknown", inline: true },
+      { name: "Tracks",       value: String(album.trackCount ?? "Unknown"), inline: true },
+      { name: "Released",     value: releaseYear, inline: true },
+      { name: "Genre",        value: album.primaryGenreName ?? "N/A", inline: true },
+      { name: "Copyright",    value: album.copyright ?? "N/A" }
     )
-    .setFooter({ text: "Source: MusicBrainz" });
+    .setFooter({ text: "Source: iTunes / Apple Music" });
 
   interaction.editReply({ embeds: [embed] });
 }
