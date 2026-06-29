@@ -18,3 +18,22 @@ export async function searchSong(title) {
     return null;
   }
 }
+
+/**
+ * Searches the iTunes API for an album.
+ * @param {string} title - The album title to search for.
+ * @returns {Promise<object|null>} The top album object from iTunes, or null.
+ */
+export async function searchAlbum(title) {
+  // Using entity=album filters out singles/individual tracks
+  const url = `https://itunes.apple.com/search?term=${encodeURIComponent(title)}&media=music&entity=album&limit=1`;
+  
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.results?.[0] ?? null;
+  } catch (error) {
+    console.error("iTunes Album API Error:", error);
+    return null;
+  }
+}
