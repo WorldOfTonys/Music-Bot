@@ -5,12 +5,47 @@ import * as album  from "./commands/album.js";
 import * as song   from "./commands/song.js";
 import http from "http";
 
-const client   = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessageReactions,
+  ],
+});
 const commands = new Collection();
 
 for (const cmd of [artist, album, song]) {
   commands.set(cmd.data.name, cmd);
 }
+
+const REACTIONS = {
+  exclamation: ["Hey, don't you shout like that!"],
+  question:    ["I don't like questions"],
+  other:       ["Sure, whatevs"],
+};
+
+function pickReaction(content) {
+  const trimmed = content.trim();
+  const lastChar = trimmed.charAt(trimmed.length - 1);
+  const pool =
+    lastChar === "!" ? REACTIONS.exclamation :
+    lastChar === "?" ? REACTIONS.question :
+    REACTIONS.other;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+client.on("messageCreate", async message => {
+  if (message.author.bot) return;
+  if (!message.mentions.has(client.user)) return;
+
+  const emoji = pickReaction(message.content);
+  try {
+    await message.react(emoji);
+  } catch (err) {
+    console.error("Failed to react:", err);
+  }
+});
 
 // Deploy slash commands to your test server
 const rest = new REST().setToken(process.env.DISCORD_TOKEN);
