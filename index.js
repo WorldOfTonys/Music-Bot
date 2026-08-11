@@ -35,8 +35,11 @@ function pickReply(content) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
+const REPLY_CHANNEL_ID = "1536832067290275910";
+
 client.on("messageCreate", async message => {
   if (message.author.bot) return;
+  if (message.channel.id !== REPLY_CHANNEL_ID) return;
   if (!message.mentions.has(client.user)) return;
 
   const text = pickReply(message.content);
