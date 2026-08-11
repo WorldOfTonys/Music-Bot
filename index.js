@@ -19,19 +19,19 @@ for (const cmd of [artist, album, song]) {
   commands.set(cmd.data.name, cmd);
 }
 
-const REACTIONS = {
-  exclamation: ["Hey, don't you shout like that!"],
-  question:    ["I don't like questions"],
-  other:       ["Sure, whatevs"],
+const REPLIES = {
+  exclamation: ["Hey, don't you shout like that!", "Whoa, chill out!", "No need to yell!"],
+  question:    ["I don't like questions.", "Ask someone else.", "Hmm, good question... nah."],
+  other:       ["Sure, whatevs.", "Cool story.", "Noted."],
 };
 
-function pickReaction(content) {
+function pickReply(content) {
   const trimmed = content.trim();
   const lastChar = trimmed.charAt(trimmed.length - 1);
   const pool =
-    lastChar === "!" ? REACTIONS.exclamation :
-    lastChar === "?" ? REACTIONS.question :
-    REACTIONS.other;
+    lastChar === "!" ? REPLIES.exclamation :
+    lastChar === "?" ? REPLIES.question :
+    REPLIES.other;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -39,11 +39,11 @@ client.on("messageCreate", async message => {
   if (message.author.bot) return;
   if (!message.mentions.has(client.user)) return;
 
-  const emoji = pickReaction(message.content);
+  const text = pickReply(message.content);
   try {
-    await message.react(emoji);
+    await message.reply(text);
   } catch (err) {
-    console.error("Failed to react:", err);
+    console.error("Failed to reply:", err);
   }
 });
 
