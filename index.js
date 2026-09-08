@@ -68,3 +68,9 @@ client.once("ready", () => console.log(`🎵 Logged in as ${client.user.tag}`));
 client.login(process.env.DISCORD_TOKEN);
 
 http.createServer((_, res) => res.end("Bot is running!")).listen(process.env.PORT || 3000);
+
+const counting = require('./counting.js');
+
+client.on('messageCreate', async (message) => {
+  await counting.handleMessage(message);
+});
