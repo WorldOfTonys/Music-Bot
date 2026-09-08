@@ -21,9 +21,9 @@ for (const cmd of [artist, album, song]) {
 }
 
 const REPLIES = {
-  exclamation: ["Hey, don't you shout like that!", "Whoa, chill out!", "No need to yell!", "Too loud!", "Exclamation marks scare me...", "Quack!", "Too loud!!! Punishment... FEED ME!!!"],
-  question:    ["I don't like questions.", "Ask someone else.", "Hmm, good question... nah.", "Quack?", "Well... sure, whatevs", "Oki", "NEIN!!!", "Hmmm... how about... no?", "YES, ABSOLUTELY", "Feed me, then I'll answer"],
-  other:        ["Sure, whatevs.", "Cool story.", "Noted.", "Quack.", "Heh?", "Feed me please...", "Oh, hello", "WAAAAH!!! WHO ARE YOU!?"],
+  exclamation: ["Hey, don't you shout like that!", "Whoa, chill out!", "No need to yell!", "Too loud!", "Exclamation marks scare me...", "Quack!", "Too loud!!! Punishment... FEED ME!!!", "IF YOU CONTINUE SHOUTING, YOU DON'T WANNA KNOW WHAT'LL HAPPEN!!!"],
+  question:    ["I don't like questions.", "Ask someone else.", "Hmm, good question... nah.", "Quack?", "Well... sure, whatevs", "Oki", "NEIN!!!", "Hmmm... how about... no?", "YES, ABSOLUTELY", "Feed me, then I'll answer", "Yes, of course", "Yup", "The devil on my shoulder says yes, but the little angel says no.", "Heheh... >:)", "Nope", "Why would I say no?"],
+  other:        ["Sure, whatevs.", "Cool story.", "Noted.", "Quack.", "Heh?", "Feed me please...", "Oh, hello", "WAAAAH!!! WHO ARE YOU!?", "I would never ever swim in the sea. Ponds are much safer :)", "Hi there", "QUACK QUACK QUACK", "I am a duck", "You're silly"],
 };
 
 function pickReply(content) {
