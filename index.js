@@ -3,6 +3,7 @@ import { Client, GatewayIntentBits, REST, Routes, Collection } from "discord.js"
 import * as artist from "./commands/artist.js";
 import * as album  from "./commands/album.js";
 import * as song   from "./commands/song.js";
+import { handleMessage as handleCounting } from "./counting.js";
 import http from "http";
 
 const client = new Client({
@@ -22,7 +23,7 @@ for (const cmd of [artist, album, song]) {
 const REPLIES = {
   exclamation: ["Hey, don't you shout like that!", "Whoa, chill out!", "No need to yell!"],
   question:    ["I don't like questions.", "Ask someone else.", "Hmm, good question... nah."],
-  other:       ["Sure, whatevs.", "Cool story.", "Noted."],
+  other:        ["Sure, whatevs.", "Cool story.", "Noted."],
 };
 
 function pickReply(content) {
@@ -37,16 +38,21 @@ function pickReply(content) {
 
 const REPLY_CHANNEL_ID = "1536832067290275910";
 
-client.on("messageCreate", async message => {
+// Unified message event listener
+client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
-  if (message.channel.id !== REPLY_CHANNEL_ID) return;
-  if (!message.mentions.has(client.user)) return;
 
-  const text = pickReply(message.content);
-  try {
-    await message.reply(text);
-  } catch (err) {
-    console.error("Failed to reply:", err);
+  // Handle counting system
+  await handleCounting(message);
+
+  // Handle duck mention replies
+  if (message.channel.id === REPLY_CHANNEL_ID && message.mentions.has(client.user)) {
+    const text = pickReply(message.content);
+    try {
+      await message.reply(text);
+    } catch (err) {
+      console.error("Failed to reply:", err);
+    }
   }
 });
 
@@ -58,7 +64,7 @@ await rest.put(
 );
 console.log("✅ Slash commands registered.");
 
-client.on("interactionCreate", async interaction => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
   const cmd = commands.get(interaction.commandName);
   if (cmd) await cmd.execute(interaction);
@@ -68,9 +74,3 @@ client.once("ready", () => console.log(`🎵 Logged in as ${client.user.tag}`));
 client.login(process.env.DISCORD_TOKEN);
 
 http.createServer((_, res) => res.end("Bot is running!")).listen(process.env.PORT || 3000);
-
-const counting = require('./counting.js');
-
-client.on('messageCreate', async (message) => {
-  await counting.handleMessage(message);
-});
