@@ -21,9 +21,9 @@ for (const cmd of [artist, album, song]) {
 }
 
 const REPLIES = {
-  exclamation: ["Hey, don't you shout like that!", "Whoa, chill out!", "No need to yell!"],
-  question:    ["I don't like questions.", "Ask someone else.", "Hmm, good question... nah."],
-  other:        ["Sure, whatevs.", "Cool story.", "Noted."],
+  exclamation: ["Hey, don't you shout like that!", "Whoa, chill out!", "No need to yell!", "Too loud!", "Exclamation marks scare me...", "Quack!", "Too loud!!! Punishment... FEED ME!!!"],
+  question:    ["I don't like questions.", "Ask someone else.", "Hmm, good question... nah.", "Quack?", "Well... sure, whatevs", "Oki", "NEIN!!!", "Hmmm... how about... no?", "YES, ABSOLUTELY", "Feed me, then I'll answer"],
+  other:        ["Sure, whatevs.", "Cool story.", "Noted.", "Quack.", "Heh?", "Feed me please...", "Oh, hello", "WAAAAH!!! WHO ARE YOU!?"],
 };
 
 function pickReply(content) {
