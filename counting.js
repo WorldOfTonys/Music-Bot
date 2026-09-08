@@ -1,7 +1,7 @@
 // --- CONFIGURATION ---
 const COUNTING_CHANNELS = {
-  '1546909910439035010': { mode: 'standard' },
-  '1546909939602161694': { mode: 'binary' }
+  'disabled': { mode: 'standard' },
+  'disabled': { mode: 'binary' }
 };
 
 // Isolated state container for each channel
