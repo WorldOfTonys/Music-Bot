@@ -1,8 +1,7 @@
 // --- CONFIGURATION ---
-// Map channel IDs directly to their specific counting rules
 const COUNTING_CHANNELS = {
-  '1546909910439035010': { mode: 'standard' }, // Replace with standard counting channel ID
-  '1546909939602161694': { mode: 'binary' }     // Replace with binary counting channel ID
+  '1546909910439035010': { mode: 'standard' },
+  '1546909939602161694': { mode: 'binary' }
 };
 
 // Isolated state container for each channel
@@ -16,22 +15,21 @@ for (const channelId of Object.keys(COUNTING_CHANNELS)) {
   };
 }
 
-module.exports = {
-  handleMessage: async (message) => {
-    if (message.author.bot) return;
+// Exported using ES Module syntax
+export async function handleMessage(message) {
+  if (message.author.bot) return;
 
-    const channelConfig = COUNTING_CHANNELS[message.channel.id];
-    if (!channelConfig) return; // Not a counting channel
+  const channelConfig = COUNTING_CHANNELS[message.channel.id];
+  if (!channelConfig) return; // Not a counting channel
 
-    const state = channelStates[message.channel.id];
+  const state = channelStates[message.channel.id];
 
-    if (channelConfig.mode === 'standard') {
-      await handleStandard(message, state);
-    } else if (channelConfig.mode === 'binary') {
-      await handleBinary(message, state);
-    }
+  if (channelConfig.mode === 'standard') {
+    await handleStandard(message, state);
+  } else if (channelConfig.mode === 'binary') {
+    await handleBinary(message, state);
   }
-};
+}
 
 async function handleStandard(message, state) {
   const content = message.content.trim();
