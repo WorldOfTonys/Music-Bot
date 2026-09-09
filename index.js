@@ -86,7 +86,7 @@ const REPLIES = {
     "Would a sick guitar riff solve this? Because that's all I've got.",
     "Do I look like a fortune teller in a leather jacket?",
     "Is this a pop quiz? Because I didn't study.",
-    "I'll answer if you guess my favorite drop-tuning.",
+    "I'll answer if you guess my favourite drop-tuning.",
     "The answer is hidden somewhere in a 10-minute bass solo."
   ],
   other: [
@@ -110,7 +110,6 @@ const REPLIES = {
     "I need some nom nom food",
     "My mom told me I shouldn't talk to strangers...",
     "I've heard heavier breakdowns in a pop song.",
-    "Sir, this is a mosh pit.",
     "Fascinating. Tell it to the amp.",
     "You're lucky I'm cute, or I'd peck your cables.",
     "More bass, less talking.",
