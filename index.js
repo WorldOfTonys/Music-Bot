@@ -21,9 +21,59 @@ for (const cmd of [artist, album, song]) {
 }
 
 const REPLIES = {
-  exclamation: ["Hey, don't you shout like that!", "Whoa, chill out!", "No need to yell!", "Too loud!", "Exclamation marks scare me...", "Quack!", "Too loud!!! Punishment... FEED ME!!!", "IF YOU CONTINUE SHOUTING, YOU DON'T WANNA KNOW WHAT'LL HAPPEN!!!"],
-  question:    ["I don't like questions.", "Ask someone else.", "Hmm, good question... nah.", "Quack?", "Well... sure, whatevs", "Oki", "NEIN!!!", "Hmmm... how about... no?", "YES, ABSOLUTELY", "Feed me, then I'll answer", "Yes, of course", "Yup", "The devil on my shoulder says yes, but the little angel says no.", "Heheh... >:)", "Nope", "Why would I say no?"],
-  other:        ["Sure, whatevs.", "Cool story.", "Noted.", "Quack.", "Heh?", "Feed me please...", "Oh, hello", "WAAAAH!!! WHO ARE YOU!?", "I would never ever swim in the sea. Ponds are much safer :)", "Hi there", "QUACK QUACK QUACK", "I am a duck", "You're silly"],
+  exclamation: [
+                "Hey, don't you shout like that!", 
+                "Whoa, chill out!", 
+                "No need to yell!", 
+                "Too loud!", 
+                "Exclamation marks scare me...", 
+                "Quack!", 
+                "Too loud!!! Punishment... FEED ME!!!", 
+                "IF YOU CONTINUE SHOUTING, YOU DON'T WANNA KNOW WHAT'LL HAPPEN!!!",
+                "why are you shouting at me? :(",
+                "IF YOU SHOUT LIKE THAT, I'LL JUST SHOUT BACK AT YOU!!!"
+               ],
+  question:    [
+                "I don't like questions.", 
+                "Ask someone else.", 
+                "Hmm, good question... nah.", 
+                "Quack?", 
+                "Well... sure, whatevs", 
+                "Oki", 
+                "NEIN!!!", 
+                "Hmmm... how about... no?", 
+                "YES, ABSOLUTELY", 
+                "Feed me, then I'll answer", 
+                "Yes, of course", 
+                "Yup", 
+                "The devil on my shoulder says yes, but the little angel on my other shoulder says no.", 
+                "Heheh... >:)", 
+                "Nope", 
+                "Why would I say no?",
+                "I would never say yes to that question",
+                "All of my feathers tell me to say no"
+               ],
+  other:       [
+                "Sure, whatevs.", 
+                "Cool story.", 
+                "Noted.", 
+                "Quack.", 
+                "Heh?", 
+                "Feed me please...", 
+                "Oh, hello", 
+                "WAAAAH!!! WHO ARE YOU!?", 
+                "I would never ever swim in the sea. Ponds are much safer :)", 
+                "Hi there", 
+                "QUACK QUACK QUACK", 
+                "I am a duck", 
+                "You're silly",
+                "I'm a silly little duck",
+                "What's that you're saying?",
+                "Could you repeat that please?",
+                "LALALA, I'm not listening",
+                "I need some nom nom food",
+                "My mom told me I shouldn't talk to strangers..."
+                ],
 };
 
 function pickReply(content) {
